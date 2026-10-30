@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: saeroi-plant-diary
+    runtime: static
+    buildCommand: echo "No build required"
+    staticPublishPath: .

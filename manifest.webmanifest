@@ -1,0 +1,16 @@
+{
+  "name": "새로이 식물일기",
+  "short_name": "식물일기",
+  "description": "새로이가 사진으로 식물을 관찰하고 기록하는 어린이용 식물 관찰일기",
+  "lang": "ko-KR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F7FAF3",
+  "theme_color": "#F4F8EE",
+  "icons": [
+    {"src":"icons/icon-192.png","sizes":"192x192","type":"image/png"},
+    {"src":"icons/icon-512.png","sizes":"512x512","type":"image/png"},
+    {"src":"icons/icon-512-maskable.png","sizes":"512x512","type":"image/png","purpose":"maskable"}
+  ]
+}

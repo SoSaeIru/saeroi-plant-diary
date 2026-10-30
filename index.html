@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#F4F8EE" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="새로이 식물일기" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <title>새로이 식물일기</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand"><div class="brand-icon">🌱</div><div><h1>새로이 식물일기</h1><small>사진으로 관찰하고, 말로 기록해요</small></div></div>
+    <button class="ghost" id="installHelp">홈 화면에 두기</button>
+  </header>
+
+  <main id="home" class="view active">
+    <section class="hero">
+      <p class="hello">안녕 새로이! 👋<br>오늘 식물을 만나볼까?</p>
+      <p class="sub">사진을 찍고, 달라진 모습을 골라보면 오늘의 관찰일기가 완성돼요.</p>
+      <button class="main-btn" data-go="observe">📷 오늘 관찰하기</button>
+    </section>
+    <section class="stats"><div class="stat"><b id="recordCount">0</b><span>지금까지 관찰한 날</span></div><div class="stat"><b id="plantCount">0</b><span>관찰한 식물</span></div></section>
+    <h2 class="section-title">최근 관찰 🌿</h2>
+    <div id="recentList"></div>
+  </main>
+
+  <main id="observe" class="view">
+    <div class="topline"><button class="back" data-go="home">‹</button><h2>오늘 관찰하기</h2></div>
+    <section class="card">
+      <h3>1. 식물 사진을 찍어볼까? 📷</h3>
+      <p class="hint">식물이 잘 보이도록 가까이에서 한 장 찍어보세요.</p>
+      <div class="photo-box" id="photoBox"><div class="photo-placeholder"><div>🌿</div>아직 사진이 없어요</div></div>
+      <div class="photo-actions">
+        <label for="cameraInput">📷 사진 찍기</label>
+        <label for="libraryInput" class="secondary-btn">🖼️ 사진 고르기</label>
+      </div>
+      <input id="cameraInput" type="file" accept="image/*" capture="environment" hidden />
+      <input id="libraryInput" type="file" accept="image/*" hidden />
+    </section>
+
+    <section class="card"><h3>2. 어떤 식물이야? 🌱</h3><input class="textinput" id="plantName" type="text" inputmode="text" autocomplete="off" placeholder="예: 바질" /></section>
+
+    <section class="card"><h3>3. 무엇이 달라졌을까? 👀</h3><p class="hint">여러 개를 골라도 돼요.</p><div class="options multi" data-field="changes">
+      <button class="opt" data-value="새싹이 났어요"><span class="emoji">🌱</span>새싹이 났어요</button>
+      <button class="opt" data-value="잎이 많아졌어요"><span class="emoji">🌿</span>잎이 많아졌어요</button>
+      <button class="opt" data-value="키가 컸어요"><span class="emoji">📏</span>키가 컸어요</button>
+      <button class="opt" data-value="꽃이 피었어요"><span class="emoji">🌸</span>꽃이 피었어요</button>
+      <button class="opt" data-value="열매가 생겼어요"><span class="emoji">🍅</span>열매가 생겼어요</button>
+      <button class="opt" data-value="시들었어요"><span class="emoji">🥀</span>시들었어요</button>
+      <button class="opt" data-value="잘 모르겠어요"><span class="emoji">🤔</span>잘 모르겠어요</button>
+    </div></section>
+
+    <section class="card"><h3>4. 잎은 무슨 색이야? 🍃</h3><div class="options single" data-field="leafColor">
+      <button class="opt" data-value="초록색"><span class="emoji">🟢</span>초록색</button><button class="opt" data-value="연두색"><span class="emoji">🟩</span>연두색</button><button class="opt" data-value="노란색"><span class="emoji">🟡</span>노란색</button><button class="opt" data-value="갈색"><span class="emoji">🟤</span>갈색</button>
+    </div></section>
+
+    <section class="card"><h3>5. 흙은 어때? 🪴</h3><div class="options single" data-field="soil">
+      <button class="opt" data-value="촉촉해요"><span class="emoji">💧</span>촉촉해요</button><button class="opt" data-value="보통이에요"><span class="emoji">🙂</span>보통이에요</button><button class="opt" data-value="말랐어요"><span class="emoji">☀️</span>말랐어요</button>
+    </div></section>
+
+    <section class="card"><h3>6. 식물은 어떻게 보여? 💚</h3><div class="options single" data-field="health">
+      <button class="opt" data-value="건강해 보여요"><span class="emoji">😄</span>건강해 보여요</button><button class="opt" data-value="보통이에요"><span class="emoji">🙂</span>보통이에요</button><button class="opt" data-value="힘이 없어 보여요"><span class="emoji">😟</span>힘이 없어 보여요</button>
+    </div></section>
+
+    <section class="card"><h3>7. 오늘 내가 해준 일 💧</h3><p class="hint">여러 개를 골라도 돼요.</p><div class="options multi" data-field="care">
+      <button class="opt" data-value="물을 줬어요"><span class="emoji">💧</span>물을 줬어요</button><button class="opt" data-value="햇빛에 놓았어요"><span class="emoji">☀️</span>햇빛에 놓았어요</button><button class="opt" data-value="화분을 옮겼어요"><span class="emoji">🪴</span>화분을 옮겼어요</button><button class="opt" data-value="씨앗을 심었어요"><span class="emoji">🌱</span>씨앗을 심었어요</button><button class="opt" data-value="만져봤어요"><span class="emoji">👐</span>만져봤어요</button><button class="opt" data-value="보기만 했어요"><span class="emoji">👀</span>보기만 했어요</button>
+    </div></section>
+
+    <section class="card"><h3>8. 새로이가 발견한 것 🔍</h3><p class="hint">키보드의 🎤 받아쓰기를 눌러 말해도 돼요. 예: “어제보다 잎이 커졌어.”</p><textarea id="discovery" placeholder="발견한 것을 말하거나 적어보세요"></textarea></section>
+    <section class="card"><h3>9. 궁금한 것이 있어? ❓</h3><p class="hint">예: “왜 새로 나온 잎은 더 작아?”</p><textarea id="question" placeholder="궁금한 것을 말하거나 적어보세요"></textarea></section>
+    <button class="save" id="saveRecord">⭐ 오늘 관찰 완료!</button>
+  </main>
+
+  <main id="diary" class="view">
+    <div class="topline"><button class="back" data-go="home">‹</button><h2>새로이의 관찰일기</h2></div>
+    <div id="diaryList"></div>
+  </main>
+
+  <main id="detail" class="view">
+    <div class="topline"><button class="back" data-go="diary">‹</button><h2>관찰 보고서</h2></div>
+    <div id="detailContent"></div>
+  </main>
+</div>
+
+<nav id="nav"><button class="navbtn active" data-go="home"><span>🏠</span>처음</button><button class="navbtn" data-go="observe"><span>📷</span>관찰</button><button class="navbtn" data-go="diary"><span>📖</span>일기</button></nav>
+<dialog id="installDialog"><div class="dialog-in"><h3>🌱 홈 화면에 앱 아이콘 만들기</h3><p>iPad Safari에서 한 번만 해주면 돼요.</p><ol class="steps"><li>Safari에서 이 페이지를 엽니다.</li><li><b>공유</b> 버튼을 누릅니다.</li><li><b>홈 화면에 추가</b>를 누릅니다.</li><li><b>웹 앱으로 열기</b>를 켭니다.</li><li><b>추가</b>를 누릅니다.</li></ol><button class="close" id="closeInstall">확인</button></div></dialog>
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
